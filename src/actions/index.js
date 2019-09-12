@@ -9,6 +9,19 @@ export const getQuote = () => dispatch => {
     type: FETCHING_QUOTE_START
   });
   axios
-    .get("https://api.chucknorris.io/jokes/random")
-    .then(res => console.log(res.data));
+    .get("https://api.chucknorris.io/jokes/random/")
+    .then(res => {
+      console.log(res.data);
+      dispatch({ type: FETCHING_QUOTE_SUCCESS, payload: res.data.value });
+    })
+    // .then(res => console.log(res))
+    .catch(err => {
+      console.log(err.response.status);
+      if (err.response.status === 404) err = "GETTING NOTHING";
+      console.log("this sucks", err);
+      dispatch({
+        type: FETCHING_QUOTE_FAILURE,
+        payload: err
+      });
+    });
 };

@@ -2,18 +2,49 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { getQuote } from "../actions";
+import { QuotesCard } from "./QuotesCard";
 
 const Quotes = ({ getQuote, quote, isFetching, error }) => {
   useEffect(() => {
     getQuote();
   }, [getQuote]);
 
+  if (isFetching) {
+    return <h1>Getting a joke</h1>;
+  }
+
+  // if (error) {
+  //   return <p>Error happened</p>;
+  // }
+
   return (
-    <div>
-      <h3>Chuck Norris facts</h3>
-      <h4>{}</h4>
-    </div>
+    <>
+      <QuotesCard />
+      <div className="joke-card">
+        {/* <h3>Chuck Norris facts:</h3> */}
+        <h4>{quote}</h4>
+        <img
+          src="https://media.tenor.com/images/b8e4664cdc8797a79cebd1deed4cb7d7/tenor.gif"
+          alt="chuck punch"
+        />
+
+        {error && <p className="error">{error}</p>}
+      </div>
+
+      <button onClick={getQuote}>Get a Joke</button>
+    </>
   );
 };
 
-export default Quotes;
+const mapStateToProps = state => {
+  return {
+    quote: state.quote,
+    isFetching: state.isFetching,
+    error: state.error
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getQuote }
+)(Quotes);

@@ -1,19 +1,16 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import Quotes from './components/Quotes'
-
+import Quotes from "./components/Quotes";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>Hello app</h2>
+        <h2>Chuck Norris Jokes</h2>
       </header>
 
-      <Quotes
-      
-      />
+      <Quotes />
     </div>
   );
 }
