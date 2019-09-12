@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 
-const Quotes = () => {
+import { getQuote } from "../actions";
+
+const Quotes = ({ getQuote, quote, isFetching, error }) => {
   useEffect(() => {
-    axios
-      .get("https://api.chucknorris.io/jokes/random")
-      .then(res => console.log(res.data));
-  });
+    getQuote();
+  }, [getQuote]);
 
   return (
     <div>
